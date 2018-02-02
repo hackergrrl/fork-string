@@ -174,3 +174,37 @@ ForkString.prototype.text = function (cb) {
 
   return string
 }
+
+ForkString.prototype.pos = function (id) {
+  var visited = {}
+  var stack = this.roots.slice()
+  var pos = 0
+
+  while (stack.length > 0) {
+    var key = stack.pop()
+
+    if (visited[key]) {
+      continue
+    }
+
+    var dagnode = this.nodes[key]
+
+    // bail if there are other nodes to visit before this one
+    var needToBail = false
+    for (var i = 0; i < dagnode.incomingLinks.length; i++) {
+      if (!visited[dagnode.incomingLinks[i]]) {
+        needToBail = true
+      }
+    }
+    if (needToBail) continue
+
+    if (key === id) {
+      return pos
+    }
+
+    if (!dagnode.deleted) pos++
+
+    visited[key] = true
+    stack.push.apply(stack, dagnode.outgoingLinks)
+  }
+}

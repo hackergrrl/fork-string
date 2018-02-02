@@ -33,6 +33,8 @@ test('insertions', function (t) {
   ]
   t.deepEquals(str.chars(), expected)
 
+  t.equals(str.pos(chars3[1]), 2)
+
   t.end()
 })
 
@@ -63,6 +65,8 @@ test('deletions', function (t) {
     { chr: 'p', pos: chars[8] }
   ]
   t.deepEquals(str.chars(), expected)
+
+  t.equals(str.pos(chars[8]), 1)
 
   t.end()
 })
@@ -95,9 +99,11 @@ test('multiple roots', function (t) {
   var str = fstring()
 
   str.insert(null, null, 'Hello', 'B')
-  str.insert(null, null, 'Heya', 'A')
+  var chars = str.insert(null, null, 'Heya', 'A')
 
   t.equals(str.text(), 'HelloHeya')
+
+  t.equals(str.pos(chars[0]), 5)
 
   t.end()
 })
@@ -112,6 +118,8 @@ test('replacing a root', function (t) {
   str.insert(null, chars[0], 'Greetings and ', id2)
 
   t.equals(str.text(), 'Greetings and Hey thar')
+
+  t.equals(str.pos(chars[0]), 14)
 
   t.end()
 })

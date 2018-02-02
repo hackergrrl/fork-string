@@ -81,6 +81,10 @@ the form
 
 Returns the human-readable text of the string in its current state.
 
+### str.pos(id)
+
+Returns the absolute position of `id` in the string.
+
 ## Install
 
 With [npm](https://npmjs.org/) installed, run
