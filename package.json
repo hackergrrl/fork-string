@@ -1,6 +1,6 @@
 {
   "name": "fork-string",
-  "description": "Synchronous forkable string data structure.",
+  "description": "Synchronous forkable string primitive.",
   "author": "Stephen Whitmore <sww@eight.net>",
   "version": "0.0.0",
   "repository": {
