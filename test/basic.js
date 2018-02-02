@@ -123,3 +123,28 @@ test('replacing a root', function (t) {
 
   t.end()
 })
+
+test('clone', function (t) {
+  var str = fstring()
+
+  var id = genId()
+  var chars = str.insert(null, null, 'H', id)
+  var id2 = genId()
+  var chars2 = str.insert(chars[0], null, 'e', id2)
+  var id3 = genId()
+  var chars3 = str.insert(chars[0], chars[2], 'ol', id3)
+
+  var expected = [
+    { chr: 'H', pos: chars[0] },
+    { chr: 'o', pos: chars3[0] },
+    { chr: 'l', pos: chars3[1] },
+    { chr: 'e', pos: chars2[0] }
+  ]
+  t.deepEquals(str.chars(), expected)
+
+  var copy = str.clone()
+  t.deepEquals(copy.chars(), expected)
+
+  t.end()
+})
+

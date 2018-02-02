@@ -208,3 +208,11 @@ ForkString.prototype.pos = function (id) {
     stack.push.apply(stack, dagnode.outgoingLinks)
   }
 }
+
+ForkString.prototype.clone = function () {
+  var copy = new ForkString()
+  copy.nodes = JSON.parse(JSON.stringify(this.nodes))
+  copy.roots = JSON.parse(JSON.stringify(this.roots))
+  return copy
+}
+

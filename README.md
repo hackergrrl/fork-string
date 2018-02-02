@@ -85,6 +85,10 @@ Returns the human-readable text of the string in its current state.
 
 Returns the absolute position of `id` in the string.
 
+### str.clone()
+
+Return a copy of the fork-string.
+
 ## Install
 
 With [npm](https://npmjs.org/) installed, run
