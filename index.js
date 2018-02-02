@@ -19,12 +19,12 @@ ForkString.prototype._link = function (fromKey, toKey) {
   to.incomingLinks.push(fromKey)
 }
 
-ForkString.prototype.insert = function (prev, next, textKey, text) {
+ForkString.prototype.insert = function (prev, next, text, textKey) {
   var chars = []
 
   // create individual character entries & link them into the dag
   for (var i = 0; i < text.length; i++) {
-    var  = textKey + '@' + i
+    var key = textKey + '@' + i
     this.nodes[key] = {
       chr: text[i],
       outgoingLinks: [],
@@ -34,17 +34,17 @@ ForkString.prototype.insert = function (prev, next, textKey, text) {
 
     // link 1st character and 'prev'
     if (i === 0) {
-      link(prev, key)
+      this._link(prev, key)
     }
 
     // link this character to the previous one
     if (i > 0) {
-      link(chars[i - 1], key)
+      this._link(chars[i - 1], key)
     }
 
     // link last character to 'next'
     if (i === text.length - 1 && next) {
-      link(key, next)
+      this._link(key, next)
     }
   }
 
@@ -55,18 +55,20 @@ ForkString.prototype.insert = function (prev, next, textKey, text) {
     this.roots.sort()
   }
   // Case 2: no prev + valid next => new root (replace old root)
-  else if (!row.value.prev) {
+  else if (!prev) {
     // Find + cull the old root
     for (var i = 0; i < this.roots.length; i++) {
       var root = this.roots[i]
       if (next === root) {
-        his.roots.splice(i, 1)
+        this.roots.splice(i, 1)
       }
     }
     // Add the new root
     this.roots.push(chars[0])
     this.roots.sort()
   }
+
+  return chars
 }
 
 ForkString.prototype.delete = function (from, to, deleteKey) {
