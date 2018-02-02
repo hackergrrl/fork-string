@@ -107,7 +107,7 @@ ForkString.prototype.delete = function (from, to) {
 ForkString.prototype.chars = function (cb) {
   var string = []
   var visited = {}
-  var stack = this.roots.slice()
+  var stack = this.roots.slice().reverse()
 
   while (stack.length > 0) {
     var key = stack.pop()
@@ -145,7 +145,7 @@ ForkString.prototype.chars = function (cb) {
 ForkString.prototype.text = function (cb) {
   var string = ''
   var visited = {}
-  var stack = this.roots.slice()
+  var stack = this.roots.slice().reverse()
 
   while (stack.length > 0) {
     var key = stack.pop()
@@ -177,7 +177,7 @@ ForkString.prototype.text = function (cb) {
 
 ForkString.prototype.pos = function (id) {
   var visited = {}
-  var stack = this.roots.slice()
+  var stack = this.roots.slice().reverse()
   var pos = 0
 
   while (stack.length > 0) {

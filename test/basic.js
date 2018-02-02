@@ -95,15 +95,18 @@ test('delete: invalid input errors', function (t) {
   })
 })
 
-test('multiple roots', function (t) {
+test('multiple roots (deterministic)', function (t) {
   var str = fstring()
-
   str.insert(null, null, 'Hello', 'B')
   var chars = str.insert(null, null, 'Heya', 'A')
+  t.equals(str.text(), 'HeyaHello')
+  t.equals(str.pos(chars[0]), 0)
 
-  t.equals(str.text(), 'HelloHeya')
-
-  t.equals(str.pos(chars[0]), 5)
+  str = fstring()
+  var chars = str.insert(null, null, 'Heya', 'A')
+  str.insert(null, null, 'Hello', 'B')
+  t.equals(str.text(), 'HeyaHello')
+  t.equals(str.pos(chars[0]), 0)
 
   t.end()
 })
