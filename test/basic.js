@@ -111,18 +111,18 @@ test('multiple roots (deterministic)', function (t) {
   t.end()
 })
 
-test('replacing a root', function (t) {
+test('replacing a root (remains deterministic)', function (t) {
   var str = fstring()
 
-  var id1 = genId()
-  var id2 = genId()
+  str.insert(null, null, '2', 'H')
+  str.insert(null, null, '3', 'I')
+  var chars = str.insert(null, null, '1', 'G')
 
-  var chars = str.insert(null, null, 'Hey thar', id1)
-  str.insert(null, chars[0], 'Greetings and ', id2)
+  t.equals(str.text(), '123')
 
-  t.equals(str.text(), 'Greetings and Hey thar')
+  str.insert(null, chars[0], '4', 'Z')
 
-  t.equals(str.pos(chars[0]), 14)
+  t.equals(str.text(), '4123')
 
   t.end()
 })

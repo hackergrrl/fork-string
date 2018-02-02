@@ -25,11 +25,12 @@ ForkString.prototype.insert = function (prev, next, text, textKey) {
   // create individual character entries & link them into the dag
   for (var i = 0; i < text.length; i++) {
     var key = textKey + '@' + i
-    this.nodes[key] = {
+    var node = {
       chr: text[i],
       outgoingLinks: [],
       incomingLinks: []
     }
+    this.nodes[key] = node
     chars.push(key)
 
     // link 1st character and 'prev'
@@ -52,7 +53,7 @@ ForkString.prototype.insert = function (prev, next, text, textKey) {
   // Case 1: no prev + no next => new root
   if (!prev && !next) {
     this.roots.push(chars[0])
-    this.roots.sort()
+    this.roots.sort(rootCmp.bind(null, this))
   }
   // Case 2: no prev + valid next => new root (replace old root)
   else if (!prev) {
@@ -61,11 +62,12 @@ ForkString.prototype.insert = function (prev, next, text, textKey) {
       var root = this.roots[i]
       if (next === root) {
         this.roots.splice(i, 1)
+        node.realRoot = root
       }
     }
     // Add the new root
     this.roots.push(chars[0])
-    this.roots.sort()
+    this.roots.sort(rootCmp.bind(null, this))
   }
 
   return chars
@@ -216,3 +218,14 @@ ForkString.prototype.clone = function () {
   return copy
 }
 
+function rootCmp (index, a, b) {
+  var A = index.nodes[a]
+  var B = index.nodes[b]
+
+  var aPos = A.realRoot || a
+  var bPos = B.realRoot || b
+
+  if (aPos > bPos) return 1
+  else if (aPos < bPos) return -1
+  else return 0
+}
