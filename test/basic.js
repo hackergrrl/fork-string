@@ -54,8 +54,7 @@ test('deletions', function (t) {
   var id = genId()
   var chars = str.insert(null, null, 'beep boop', id)
 
-  var id2 = genId()
-  var chars2 = str.delete(chars[1], chars[7], id2)
+  var chars2 = str.delete(chars[1], chars[7])
 
   t.equals(str.text(), 'bp')
 

@@ -71,7 +71,7 @@ ForkString.prototype.insert = function (prev, next, text, textKey) {
   return chars
 }
 
-ForkString.prototype.delete = function (from, to, deleteKey) {
+ForkString.prototype.delete = function (from, to) {
   var visited = {}
   var stack = [from]
 
