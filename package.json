@@ -2,7 +2,7 @@
   "name": "fork-string",
   "description": "Synchronous forkable string primitive.",
   "author": "Stephen Whitmore <sww@eight.net>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "url": "git://github.com/noffle/fork-string.git"
   },
